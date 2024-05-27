@@ -1,0 +1,10 @@
+beautifulsoup4==4.12.3
+certifi==2024.2.2
+charset-normalizer==3.3.2
+chevron==0.14.0
+duckdb==0.10.3
+idna==3.7
+requests==2.32.2
+soupsieve==2.5
+tzdata==2024.1
+urllib3==2.2.1
