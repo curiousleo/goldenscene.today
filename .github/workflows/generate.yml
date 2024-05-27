@@ -26,7 +26,12 @@ jobs:
                 git config --global user.name "bot"
                 git config --global user.email "bot@users.noreply.github.com"
 
+                mv index.html index.html.new
+
                 git fetch origin
                 git checkout gh-pages
+
+                mv index.html.new index.html
+
                 git commit index.html -m "Automatic update"
                 git push
