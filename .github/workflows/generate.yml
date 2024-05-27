@@ -1,0 +1,31 @@
+name: Generate website
+on:
+    # Every day at 19:00 UTC
+    schedule: [{cron: '0 19 * * *'}]
+    # Enable manual trigger
+    workflow_dispatch:
+permissions:
+    contents: write
+
+jobs:
+    generate:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                python-version: '3.12'
+                cache: pip
+            - run: python -m pip install --upgrade pip
+            - run: pip install -r requirements.txt
+            - run: python generate.py
+            - name: Update gh-pages
+              run: |
+                set -Eeuxo pipefail
+
+                git config --global user.name "bot"
+                git config --global user.email "bot@users.noreply.github.com"
+
+                git checkout gh-pages
+                git commit index.html -m "Automatic update"
+                git push
