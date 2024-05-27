@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>GoldenScene showtimes</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/matcha.css">
+        <style>
+        del {
+            background: inherit;
+            color: inherit;
+            text-decoration: line-through;
+            padding: 0;
+        }
+        </style>
+    </head>
+    <body>
+        <main>
+            {{#date}}
+            <section>
+                <h1>{{headline}}</h1>
+                {{#showtime}}
+                <p>{{#is_full}}<del>{{/is_full}}{{time}} <a href="https://goldenscene.com/movie/{{movie_id}}">{{title_en}}</a>{{#is_full}}</del>{{/is_full}}
+                {{/showtime}}
+            </section>
+            {{/date}}
+        </main>
+    </body>
+</html>
