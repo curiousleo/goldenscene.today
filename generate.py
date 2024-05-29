@@ -102,5 +102,5 @@ if __name__ == "__main__":
         create_tables(cursor)
         save_showtimes(cursor)
         with open("index.mustache") as mustache_file:
-            with open("index.html", "w") as output_file:
+            with open("index.html", "w", encoding="utf-8") as output_file:
                 generate_html(cursor, mustache_file, output_file)
