@@ -12,9 +12,15 @@
             text-decoration: line-through;
             padding: 0;
         }
+        p {
+            font-variant-numeric: tabular-nums;
+        }
         </style>
     </head>
-    <body>
+    <body class="layout-simple">
+        <header>
+            <p>Showtimes at <a href="https://goldenscene.com">GoldenScene cinema</a>
+        </header>
         <main>
             {{#date}}
             <section>
@@ -25,5 +31,9 @@
             </section>
             {{/date}}
         </main>
+        <footer>
+            <p>No affiliation with GoldenScene cinema.
+            <p><a href="https://github.com/curiousleo/goldenscene.today/issues">Contact</a>
+        </footer>
     </body>
 </html>
