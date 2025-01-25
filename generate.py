@@ -7,6 +7,8 @@ import chevron
 import duckdb
 import requests
 
+tzinfo = zoneinfo.ZoneInfo("Asia/Hong_Kong")
+
 
 def create_tables(cursor):
     cursor.execute(
@@ -25,6 +27,17 @@ def create_tables(cursor):
         FOREIGN KEY(movie) REFERENCES movie(id))
     """
     )
+
+
+def guess_year(month, day):
+    today = datetime.now(tzinfo)
+    this_year_diff = (
+        datetime(year=today.year, month=month, day=day, tzinfo=tzinfo) - today
+    )
+    next_year_diff = (
+        datetime(year=today.year + 1, month=month, day=day, tzinfo=tzinfo) - today
+    )
+    return today.year if this_year_diff < next_year_diff else today.year + 1
 
 
 def save_showtimes(cursor):
@@ -50,7 +63,7 @@ def save_showtimes(cursor):
             for show in section.find_all("div", {"class": "showCell"}):
                 time = show.find("div", {"class": "is-size-3"}).text.strip().split(":")
                 time = datetime(
-                    year=2025,
+                    year=guess_year(month=int(month), day=int(day)),
                     month=int(month),
                     day=int(day),
                     hour=int(time[0]),
@@ -76,7 +89,7 @@ ORDER BY showtime ASC
     context = []
     date = None
     for showtime, is_full, title_en, movie_id in cursor.fetchall():
-        today = datetime.now(zoneinfo.ZoneInfo("Asia/Hong_Kong")).date()
+        today = datetime.now(tzinfo).date()
         if showtime.date() < today:
             # Ignore old showtimes
             continue
