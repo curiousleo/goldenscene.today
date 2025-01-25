@@ -38,6 +38,7 @@ def save_showtimes(cursor):
         url = f"https://goldenscene.com/movie/{movie_id}"
         soup = BeautifulSoup(requests.get(url).text, "html.parser")
         title = soup.find("div", {"class": "is-size-4"}).text.strip()
+        print(f"Title: {title}")
         cursor.execute(
             "INSERT INTO movie (id, title_en) VALUES (?, ?)", (movie_id, title)
         )
@@ -55,6 +56,7 @@ def save_showtimes(cursor):
                     hour=int(time[0]),
                     minute=int(time[1]),
                 )
+                print(f"Showtime: {time}")
                 is_full = len(show.find_all("div", {"class": "full"})) > 0
                 cursor.execute(
                     "INSERT INTO showtime (movie, showtime, is_full) VALUES (?, ?, ?)",
