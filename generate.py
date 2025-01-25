@@ -49,7 +49,7 @@ def save_showtimes(cursor):
             for show in section.find_all("div", {"class": "showCell"}):
                 time = show.find("div", {"class": "is-size-3"}).text.strip().split(":")
                 time = datetime(
-                    year=2024,
+                    year=2025,
                     month=int(month),
                     day=int(day),
                     hour=int(time[0]),
